@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from app.extensions import db
+import uuid
 
 
 class Listing(db.Model):
@@ -8,7 +9,7 @@ class Listing(db.Model):
     __tablename__ = 'listings'
     
     # Primary key
-    id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     
     # Listing information
     listing_id = db.Column(db.String(50), unique=True, nullable=False, index=True)
@@ -90,6 +91,7 @@ class Listing(db.Model):
     def to_dict(self):
         """Convert listing to dictionary for JSON serialization."""
         return {
+            'uuid': self.uuid,
             'listing_id': self.listing_id,
             'status': self.status,
             'condition': self.condition,
