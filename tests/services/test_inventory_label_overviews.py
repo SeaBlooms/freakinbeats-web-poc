@@ -346,7 +346,7 @@ class TestGetItemWithVideosAndOverviews:
             mock_get_overviews.return_value = {"Test Label": "Test overview"}
             
             service = InventoryService()
-            result = service.get_item_with_videos_by_id(listing.id)
+            result = service.get_item_with_videos_by_uuid(listing.uuid)
             
             assert result is not None
             assert 'label_overviews' in result
@@ -369,7 +369,7 @@ class TestGetItemWithVideosAndOverviews:
         session.commit()
         
         service = InventoryService()
-        result = service.get_item_with_videos_by_id(listing.id)
+        result = service.get_item_with_videos_by_uuid(listing.uuid)
         
         assert result is not None
         assert 'label_urls' in result
@@ -404,7 +404,7 @@ class TestLabelOverviewIntegration:
             service = InventoryService()
             
             # First call - should generate and cache
-            result1 = service.get_item_with_videos_by_id(listing.id)
+            result1 = service.get_item_with_videos_by_uuid(listing.uuid)
             assert result1['label_overviews'] == {"Workflow Test Label": "AI generated overview"}
             
             # Verify cached in database
@@ -413,7 +413,7 @@ class TestLabelOverviewIntegration:
             assert cached.overview == "AI generated overview"
             
             # Second call - should use cache
-            result2 = service.get_item_with_videos_by_id(listing.id)
+            result2 = service.get_item_with_videos_by_uuid(listing.uuid)
             assert result2['label_overviews'] == {"Workflow Test Label": "AI generated overview"}
             
             # AI should only be called once (cached on second call)
@@ -451,7 +451,7 @@ class TestLabelOverviewIntegration:
             mock_gemini_class.return_value = mock_gemini
             
             service = InventoryService()
-            result = service.get_item_with_videos_by_id(listing.id)
+            result = service.get_item_with_videos_by_uuid(listing.uuid)
             
             # Should have overviews for all 3 labels
             assert len(result['label_overviews']) == 3

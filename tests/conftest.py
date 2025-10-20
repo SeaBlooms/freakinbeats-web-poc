@@ -20,7 +20,8 @@ def app():
     and yields it for use in tests.
     """
     import os
-    # Set environment variables before creating app
+    # Set environment variables before importing create_app
+    os.environ['DATABASE_URL'] = 'sqlite:///:memory:'
     os.environ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     os.environ['ENABLE_AUTO_SYNC'] = 'false'
     os.environ['DISCOGS_TOKEN'] = 'test_token_12345'
