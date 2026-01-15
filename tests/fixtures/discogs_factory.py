@@ -6,6 +6,7 @@ that mimics the structure of Discogs API responses.
 """
 
 import random
+import uuid
 from faker import Faker
 from typing import Dict, List, Optional
 
@@ -37,7 +38,7 @@ class DiscogsDataFactory:
         listing_id = overrides.get('id', self.fake.random_int(min=100000, max=999999999))
         
         listing = {
-            'id': listing_id,
+            'id': listing_id,  # Discogs API uses 'id', not 'uuid' or 'listing_id'
             'status': overrides.get('status', 'For Sale'),
             'condition': overrides.get('condition', random.choice([
                 'Mint (M)', 'Near Mint (NM or M-)', 'Very Good Plus (VG+)',

@@ -134,24 +134,27 @@ def test_api_search():
 
 
 def test_api_data_by_id():
-    """Test the /api/data/<id> endpoint."""
-    # First get a listing to get a valid ID
+    """Test the /api/data/<uuid> endpoint."""
+    # First get a listing to get a valid UUID
     try:
         data_response = requests.get("http://localhost:3000/api/data", timeout=5)
         if data_response.status_code == 200:
             data = data_response.json()
             if len(data) > 0:
-                # Get the listing_id from the first item
-                listing_id = data[0].get('listing_id')
-                url = f"http://localhost:3000/api/data/{listing_id}"
+                # Get the UUID from the first item
+                uuid = data[0].get('uuid')
+                if not uuid:
+                    print("\n⚠️  No UUID field found in listing data")
+                    return False
+                url = f"http://localhost:3000/api/data/{uuid}"
             else:
-                print("\n⚠️  No listings available to test /api/data/<id>")
+                print("\n⚠️  No listings available to test /api/data/<uuid>")
                 return True  # Not a failure, just no data
         else:
-            print("\n⚠️  Could not fetch listings for /api/data/<id> test")
+            print("\n⚠️  Could not fetch listings for /api/data/<uuid> test")
             return True
     except Exception as e:
-        print(f"\n⚠️  Could not setup /api/data/<id> test: {e}")
+        print(f"\n⚠️  Could not setup /api/data/<uuid> test: {e}")
         return True
     
     print("\n" + "=" * 60)
@@ -167,7 +170,8 @@ def test_api_data_by_id():
             
             print("\n📀 Listing details:")
             print("-" * 60)
-            print(f"Listing ID: {data.get('listing_id')}")
+            print(f"UUID: {data.get('uuid')}")
+            print(f"Discogs Listing ID: {data.get('listing_id')}")
             print(f"Title: {data.get('release_title')}")
             print(f"Artist: {data.get('primary_artist')}")
             print(f"Label: {data.get('primary_label')}")
@@ -188,23 +192,27 @@ def test_api_data_by_id():
 
 
 def test_api_detail():
-    """Test the /api/detail/<id> endpoint."""
-    # First get a listing to get a valid ID
+    """Test the /api/detail/<uuid> endpoint."""
+    # First get a listing to get a valid UUID
     try:
         data_response = requests.get("http://localhost:3000/api/data", timeout=5)
         if data_response.status_code == 200:
             data = data_response.json()
             if len(data) > 0:
-                # Use database ID (first item's index)
-                url = "http://localhost:3000/api/detail/0"
+                # Get the UUID from the first item
+                uuid = data[0].get('uuid')
+                if not uuid:
+                    print("\n⚠️  No UUID field found in listing data")
+                    return False
+                url = f"http://localhost:3000/api/detail/{uuid}"
             else:
-                print("\n⚠️  No listings available to test /api/detail/<id>")
+                print("\n⚠️  No listings available to test /api/detail/<uuid>")
                 return True  # Not a failure, just no data
         else:
-            print("\n⚠️  Could not fetch listings for /api/detail/<id> test")
+            print("\n⚠️  Could not fetch listings for /api/detail/<uuid> test")
             return True
     except Exception as e:
-        print(f"\n⚠️  Could not setup /api/detail/<id> test: {e}")
+        print(f"\n⚠️  Could not setup /api/detail/<uuid> test: {e}")
         return True
     
     print("\n" + "=" * 60)

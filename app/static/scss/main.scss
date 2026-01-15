@@ -3,6 +3,7 @@
 @import 'vinyl';
 @import 'checkout';
 @import 'filters';
+@import 'icons';
 
 .collage-container {
   @include glass-container;
@@ -31,15 +32,16 @@
   min-height: 320px; /* Ensure consistent height for Firefox */
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba($text-white, 0.5);
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: $shadow-lg;
   }
   
   .vinyl-image {
-    height: 200px;
+    height: 170px;
     border-radius: $radius-sm $radius-sm 0 0;
     flex-shrink: 0; /* Prevent image from shrinking */
+    border: 1px solid $white-alpha-20;
   }
   
   .vinyl-info {
@@ -54,16 +56,19 @@
     font-size: 0.9rem;
     margin-bottom: $spacing-xs;
     @include text-truncate(2);
+    color: $text-primary;
   }
   
   .vinyl-artist {
     font-size: 0.8rem;
     margin-bottom: $spacing-xs;
+    color: $text-secondary;
   }
   
   .vinyl-price {
     font-size: 0.9rem;
     color: $text-primary;
+    margin-bottom: $spacing-xs;
   }
   
   .no-image {
@@ -73,11 +78,13 @@
 
 .vinyl-condition {
   font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2px 6px;
+  background: $white-alpha-20;
+  color: $text-primary;
+  padding: $spacing-xs $spacing-sm;
   border-radius: $radius-sm;
   display: inline-block;
   margin-top: $spacing-xs;
+  margin-right: $spacing-xs;
 }
 
 @media (max-width: 768px) {

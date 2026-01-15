@@ -1,14 +1,16 @@
 @import 'variables';
 @import 'base';
 @import 'vinyl';
+@import 'icons';
 
 .back-button {
   position: absolute;
-  top: 0;
+  top: $spacing-xs;
   left: 0;
   color: white;
   text-decoration: none;
   padding: $spacing-sm $spacing-lg;
+  font-size: 1rem;
   @include glass;
   border-radius: $radius-pill;
   transition: all 0.3s ease;
@@ -31,17 +33,19 @@
   .vinyl-image {
     max-width: 400px;
     height: 400px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: $shadow-lg;
   }
   
   .vinyl-title {
     font-size: 2rem;
     margin-bottom: $spacing-sm;
+    color: $text-primary;
   }
   
   .vinyl-artist {
     font-size: 1.3rem;
     margin-bottom: $spacing-lg;
+    color: $text-secondary;
   }
   
   .vinyl-price {
@@ -118,20 +122,24 @@
   border-radius: $radius-sm;
 }
 
-.detail-label {
+  .detail-label {
   font-size: 0.9rem;
   opacity: 0.8;
   margin-bottom: $spacing-xs;
+  color: $text-primary;
 }
 
 .detail-value {
   font-size: 1.1rem;
   font-weight: bold;
+  color: $text-primary;
 }
 
 .add-to-cart {
   @include button-primary;
   width: 100%;
+  margin-top: $spacing-md;
+  padding: $spacing-sm $spacing-lg;
 }
 
 // Video Player Styles
@@ -145,7 +153,7 @@
     h3 {
       margin: 0;
       font-size: 1.1rem;
-      color: $text-white;
+      color: $text-primary;
       text-align: center;
     }
   }
@@ -154,7 +162,7 @@
     margin-bottom: $spacing-md;
     border-radius: $radius-sm;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: $shadow-md;
     
     iframe {
       border-radius: $radius-sm;
@@ -225,7 +233,7 @@
     h3 {
       margin: 0;
       font-size: 1.1rem;
-      color: $text-white;
+      color: $text-primary;
       text-align: center;
     }
   }
@@ -261,7 +269,7 @@
     .label-overview-text {
       font-size: 0.95rem;
       line-height: 1.8;
-      color: #000;
+      color: $text-primary;
       opacity: 1;
       white-space: pre-line; // Preserve line breaks for bullet points
       
@@ -304,7 +312,7 @@
         font-size: 0.95rem;
         font-weight: bold;
         margin-bottom: $spacing-xs;
-        color: #000;
+        color: $text-primary;
       }
       
       .label-link-description {

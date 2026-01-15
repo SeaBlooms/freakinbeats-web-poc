@@ -44,8 +44,9 @@ def index():
 def cart():
     return render_template('cart.html')
 
-@bp.route('/detail/<listing_id>')
-def detail(listing_id):
+@bp.route('/detail/<string:uuid>')
+def detail(uuid):
+    """Detail page for a specific listing by UUID."""
     return render_template('detail.html')
 
 @bp.route('/checkout')

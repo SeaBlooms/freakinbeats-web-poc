@@ -5,20 +5,20 @@ class VinylDetail {
         this.labelUrls = [];
         this.labelOverviews = {};
         this.currentVideoIndex = 0;
-        this.id = this.getIdFromUrl();
+        this.uuid = this.getUuidFromUrl();
         this.loadData();
     }
 
-    getIdFromUrl() {
+    getUuidFromUrl() {
         const path = window.location.pathname;
-        const match = path.match(/\/detail\/(\d+)/);
-        return match ? parseInt(match[1]) : null;
+        const match = path.match(/\/detail\/([a-f0-9-]+)/);
+        return match ? match[1] : null;
     }
 
     async loadData() {
         try {
-            // Try to get detailed data with videos using the database ID
-            const detailResponse = await fetch(`/api/detail/${this.id + 1}`);
+            // Get detailed data with videos using the UUID
+            const detailResponse = await fetch(`/api/detail/${this.uuid}`);
             if (detailResponse.ok) {
                 const detailData = await detailResponse.json();
                 this.item = detailData;
@@ -30,7 +30,7 @@ class VinylDetail {
             }
             
             // Fallback to basic listing data
-            const basicResponse = await fetch(`/api/data/${this.id}`);
+            const basicResponse = await fetch(`/api/data/${this.uuid}`);
             if (basicResponse.ok) {
                 const basicData = await basicResponse.json();
                 this.item = basicData;

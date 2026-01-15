@@ -354,14 +354,12 @@ class DiscogsCollage {
         grid.style.display = 'grid';
         grid.innerHTML = '';
 
-        this.filteredData.forEach((item, index) => {
-            // Find the original index in allData for correct detail page linking
-            const originalIndex = this.allData.findIndex(d => d.listing_id === item.listing_id);
-            grid.appendChild(this.createVinylItem(item, originalIndex));
+        this.filteredData.forEach((item) => {
+            grid.appendChild(this.createVinylItem(item));
         });
     }
 
-    createVinylItem(item, index) {
+    createVinylItem(item) {
         const div = document.createElement('div');
         div.className = 'vinyl-item';
         
@@ -378,12 +376,13 @@ class DiscogsCollage {
                 <div class="vinyl-title">${item.release_title || 'Unknown Title'}</div>
                 <div class="vinyl-artist">${item.artist_names || 'Unknown Artist'}</div>
                 <div class="vinyl-price">${CartUtils.formatPrice(item.price_value)}</div>
-                <div class="vinyl-condition">${item.condition || 'Unknown'}</div>
+                <div class="vinyl-condition">Media: ${item.condition || 'Unknown'}</div>
+                <div class="vinyl-condition">Sleeve: ${item.sleeve_condition || 'Unknown'}</div>
             </div>
         `;
 
         div.addEventListener('click', () => {
-            window.location.href = `/detail/${index}`;
+            window.location.href = `/detail/${item.uuid}`;
         });
 
         return div;

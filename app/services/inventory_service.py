@@ -38,18 +38,18 @@ class InventoryService:
         """
         listing = Listing.query.filter_by(listing_id=listing_id).first()
         return listing.to_dict() if listing else None
-    
-    def get_item_by_id(self, id: int) -> Optional[dict]:
+
+    def get_item_by_uuid(self, uuid: str) -> Optional[dict]:
         """
-        Get a single listing by its database ID.
-        
+        Get a single listing by its UUID.
+
         Args:
-            id: The database ID
-            
+            uuid: The UUID of the listing
+
         Returns:
             Listing dictionary or None if not found
         """
-        listing = Listing.query.get(id)
+        listing = Listing.query.get(uuid)
         return listing.to_dict() if listing else None
     
     def search_items(self, query: str = None, artist: str = None, 
@@ -114,29 +114,29 @@ class InventoryService:
         # Get unique artists with counts
         artists = Listing.query.with_entities(
             Listing.primary_artist,
-            func.count(Listing.id).label('count')
+            func.count(Listing.uuid).label('count')
         ).filter(
             Listing.primary_artist.isnot(None),
             Listing.primary_artist != ''
         ).group_by(Listing.primary_artist).order_by(
-            func.count(Listing.id).desc()
+            func.count(Listing.uuid).desc()
         ).all()
         
         # Get unique labels with counts
         labels = Listing.query.with_entities(
             Listing.primary_label,
-            func.count(Listing.id).label('count')
+            func.count(Listing.uuid).label('count')
         ).filter(
             Listing.primary_label.isnot(None),
             Listing.primary_label != ''
         ).group_by(Listing.primary_label).order_by(
-            func.count(Listing.id).desc()
+            func.count(Listing.uuid).desc()
         ).all()
         
         # Get unique years with counts
         years = Listing.query.with_entities(
             Listing.release_year,
-            func.count(Listing.id).label('count')
+            func.count(Listing.uuid).label('count')
         ).filter(
             Listing.release_year.isnot(None),
             Listing.release_year != ''
@@ -147,23 +147,23 @@ class InventoryService:
         # Get unique conditions with counts
         conditions = Listing.query.with_entities(
             Listing.condition,
-            func.count(Listing.id).label('count')
+            func.count(Listing.uuid).label('count')
         ).filter(
             Listing.condition.isnot(None),
             Listing.condition != ''
         ).group_by(Listing.condition).order_by(
-            func.count(Listing.id).desc()
+            func.count(Listing.uuid).desc()
         ).all()
         
         # Get unique sleeve conditions with counts
         sleeve_conditions = Listing.query.with_entities(
             Listing.sleeve_condition,
-            func.count(Listing.id).label('count')
+            func.count(Listing.uuid).label('count')
         ).filter(
             Listing.sleeve_condition.isnot(None),
             Listing.sleeve_condition != ''
         ).group_by(Listing.sleeve_condition).order_by(
-            func.count(Listing.id).desc()
+            func.count(Listing.uuid).desc()
         ).all()
         
         return {
@@ -250,17 +250,17 @@ class InventoryService:
             
         return result
     
-    def get_item_with_videos_by_id(self, id: int) -> Optional[Dict]:
+    def get_item_with_videos_by_uuid(self, uuid: str) -> Optional[Dict]:
         """
-        Get a listing with detailed release information including videos by database ID.
+        Get a listing with detailed release information including videos by UUID.
         
         Args:
-            id: The database ID
+            uuid: The UUID of the listing (primary key)
             
         Returns:
             Dictionary with listing data and videos, or None if not found
         """
-        listing = Listing.query.get(id)
+        listing = Listing.query.get(uuid)
         if not listing:
             return None
             

@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'base';
 @import 'vinyl';
+@import 'icons';
 
 // Checkout page styles
 .checkout-container {
@@ -81,7 +82,7 @@
   justify-content: space-between;
   align-items: center;
   padding: $spacing-md 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid $white-alpha-10;
   
   &:last-child {
     border-bottom: none;
@@ -93,7 +94,7 @@
   
   .order-item-title {
     font-weight: 600;
-    color: $text-primary;
+      color: $text-primary;
     margin-bottom: $spacing-xs;
   }
   
@@ -104,19 +105,19 @@
   }
   
   .order-item-quantity {
-    color: $text-tertiary;
+    color: $text-secondary;
     font-size: 0.8rem;
   }
 }
 
-.order-item-price {
+  .order-item-price {
   font-weight: 600;
   color: $text-primary;
   font-size: 1.1rem;
 }
 
 .order-total {
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid $table-border;
   padding-top: $spacing-md;
   margin-top: $spacing-md;
 }
@@ -136,7 +137,7 @@
     font-size: 1.2rem;
     margin-top: $spacing-md;
     padding-top: $spacing-md;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid $white-alpha-10;
   }
 }
 
@@ -196,19 +197,19 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background: rgba(255, 255, 255, 0.1);
+    background: $white-alpha-10;
   }
 }
 
 .secondary-btn {
   @include glass;
-  background: rgba(255, 255, 255, 0.1);
+  background: $white-alpha-10;
   color: $text-primary;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid $white-alpha-20;
   
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: $white-alpha-20;
+    border-color: $white-alpha-30;
   }
 }
 
@@ -219,7 +220,7 @@
   justify-content: space-between;
   margin-top: $spacing-lg;
   padding-top: $spacing-lg;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid $white-alpha-20;
   
   @media (max-width: 480px) {
     flex-direction: column;
